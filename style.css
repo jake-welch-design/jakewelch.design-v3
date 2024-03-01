@@ -1,0 +1,505 @@
+/* Custom font faces */
+@font-face {
+  font-family: Ibmplexmono Text;
+  src: url(/fonts/ibmplexmono-text.ttf);
+}
+
+@font-face {
+  font-family: Ibmplexmono Semibold;
+  src: url(/fonts/ibmplexmono-semibold.ttf);
+}
+
+@font-face {
+  font-family: Ibmplexmono TextItalic;
+  src: url(/fonts/ibmplexmono-textitalic.otf);
+}
+
+/* Root variables for easy color management */
+:root {
+  --primary-color: #ffffff; /* Primary color (white) */
+  --secondary-color: #000000; /* Secondary color (black) */
+  --hover-color: #0000ff; /* Hover state color (blue) */
+  --cursor-color: #0000ff; /* Cursor color (blue) */
+  --cursor-hover-color: #ff0000; /* Cursor color (blue) */
+
+  --cursor-size: 10; /* Cursor size */
+  --border-thickness: 2px; /* Border thickness */
+}
+
+/* Global cursor style */
+body,
+html {
+  cursor: auto; /* Default cursor */
+}
+
+/* Cursor style for links on hover */
+a:hover {
+  cursor: auto; /* Default cursor on hover */
+}
+
+/* Body styling */
+body {
+  padding-top: 60px; /* Adjust this value based on the header's height */
+  font-family: Ibmplexmono Text;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+}
+
+/* Header styling */
+header {
+  position: fixed; /* Fixed position */
+  top: 0; /* Align to the top of the viewport */
+  left: 0; /* Align to the left of the viewport */
+  right: 0; /* Align to the right of the viewport */
+  z-index: 1000; /* Ensure it's above other content */
+
+  font-family: Ibmplexmono Semibold;
+  display: flex;
+  justify-content: space-between; /* Space between header elements */
+  align-items: center; /* Vertically center items in header */
+  padding: 2vw; /* Responsive padding based on viewport width */
+  min-height: 10px;
+  max-height: 30px;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+  border-bottom: var(--border-thickness) solid var(--secondary-color); /* Bottom border for header */
+}
+
+/* Header title styling */
+header h1 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Header link */
+.header-title a {
+  text-decoration: none; /* Removes underline from links */
+  color: var(--secondary-color); /* Sets the color */
+  font-family: Ibmplexmono Semibold; /* Sets the font */
+}
+
+.header-title a:hover {
+  color: var(--sescondary-color); /* Change color on hover */
+}
+
+.header-title a span {
+  display: inline-block;
+  transition: all 0.6s ease;
+}
+
+/* Navigation styling */
+nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end; /* Align nav items to the right */
+}
+
+/* Unordered list in navigation */
+nav ul {
+  list-style: none; /* Remove default list styling */
+  padding: 0;
+  display: flex; /* Display list items in a row */
+  margin: 0;
+}
+
+/* List items in navigation */
+nav ul li {
+  position: relative; /* For absolute positioning of dropdown */
+  display: inline-block; /* Display items inline with block properties */
+  margin-right: 50px; /* Space between nav items */
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+  top: 60px; /* Adjust this value to align with the bottom of the header */
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed position relative to the viewport */
+  top: 0; /* Positioned at the top */
+  right: 0; /* Aligned to the right */
+  background-color: var(--primary-color);
+  border-left: var(--border-thickness) solid var(--secondary-color); /* Left border */
+  box-sizing: border-box;
+  z-index: 1000; /* High z-index to overlay content */
+  overflow-y: auto; /* Scrollable if content overflows */
+  max-height: 100vh; /* Full height of the viewport */
+  max-width: 90vw;
+}
+
+/* Animation for showing the dropdown */
+.show-dropdown {
+  display: block;
+  animation: slideIn 0.5s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Animation for hiding the dropdown */
+.hide-dropdown {
+  animation: slideOut 1s ease forwards;
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Last list item in navigation */
+nav ul li:last-child {
+  margin-right: 0; /* No right margin for the last item */
+}
+
+/* Responsive design for smaller screens */
+@media screen and (max-width: 500px) {
+  nav ul li {
+    margin-right: 20px; /* Reduced margin for smaller screens */
+  }
+}
+
+/* Link styling in navigation */
+nav ul li a {
+  font-family: Ibmplexmono Semibold;
+  text-decoration: none; /* No underline */
+  color: var(--secondary-color);
+}
+
+/* Hover state for links */
+nav ul li a:hover {
+  color: var(--hover-color); /* Change color on hover */
+}
+
+/* Active state for links */
+nav ul li.active a {
+  color: var(--hover-color); /* Highlight color for active link */
+}
+
+/* Base font size for header and navigation */
+header h1,
+nav ul li a {
+  font-size: 2vw; /* Responsive font size based on viewport width */
+}
+
+/* Dropdown item styling - both headers and list items */
+.dropdown-menu .dropdown-heading,
+.dropdown-menu li,
+.dropdown-menu a {
+  /* Apply styles to both list items and links */
+  font-family: Ibmplexmono Text;
+  font-size: 1.4vw; /* Base font size relative to viewport width */
+  color: var(--secondary-color); /* Default color - black */
+  text-decoration: none; /* No underline */
+  display: block; /* Each item on a new line */
+}
+
+/* Indentation for list items */
+.dropdown-menu li {
+  padding-left: 50px; /* Adjust this value as needed for indentation */
+}
+
+/* Additional top padding for the first dropdown item */
+.dropdown-menu {
+  padding-top: 20px; /* Adjust as needed */
+}
+
+/* Specific styling for dropdown headings */
+.dropdown-menu .dropdown-heading {
+  font-family: Ibmplexmono SemiBold;
+  padding-left: 20px; /* Align with the start of the dropdown */
+}
+
+/* Specific styling for dropdown menu links */
+.nav-item .dropdown-menu a {
+  color: var(--secondary-color); /* Default color - black */
+}
+
+/* Hover state for dropdown menu links */
+.nav-item .dropdown-menu a:hover {
+  color: var(--hover-color); /* Change color on hover - blue */
+}
+
+/* Active state for dropdown menu links */
+.nav-item .dropdown-menu a.active {
+  color: var(--hover-color); /* Active link color - blue */
+}
+
+/* Dropdown item styling - both headers and list items */
+.dropdown-menu .dropdown-heading,
+.dropdown-menu li,
+.dropdown-menu a {
+  /* Apply styles to both list items and links */
+  font-size: 1.4vw; /* Base font size relative to viewport width */
+  line-height: 2.8vw; /* Double the font size for line height */
+  color: var(--secondary-color); /* Default color - black */
+  text-decoration: none; /* No underline */
+  display: block; /* Each item on a new line */
+}
+
+/* Responsive design for larger screens */
+@media screen and (min-width: 1200px) {
+  .dropdown-menu .dropdown-heading,
+  .dropdown-menu li,
+  .dropdown-menu a {
+    font-size: 16.8px; /* Fixed font size for larger screens */
+    line-height: 33.6px; /* Fixed line height for larger screens */
+  }
+}
+
+/* Responsive design for smaller screens */
+@media screen and (max-width: 1200px) {
+  .dropdown-menu .dropdown-heading,
+  .dropdown-menu li,
+  .dropdown-menu a {
+    /* Apply to both headings, list items, and links */
+    font-size: calc(1.4vw + 1px); /* Smoother scaling */
+    line-height: calc(2.8vw + 2px); /* Scaling line height */
+  }
+}
+
+/* Text selection styling */
+::selection {
+  background-color: var(--secondary-color); /* Black background */
+  color: var(--primary-color); /* White text */
+}
+
+/* Main content area styling */
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  padding: 0 20px; /* Add horizontal padding if needed */
+/*   overflow: hidden; /* Add if you want to clip the video edges */ 
+}
+
+/* Link styling in navigation */
+a {
+/*   font-family: Ibmplexmono text; */
+  text-decoration: none; /* No underline */
+  color: var(--secondary-color);
+}
+
+/* Hover state for links */
+a:hover {
+  color: var(--hover-color); /* Change color on hover */
+}
+
+/* START OF PROJECT PAGE ELEMENTS */
+
+/* Ensure box sizing includes padding and border */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Project Page Main Content Style */
+.project-page main {
+  display: block; /* Override flex styling */
+  background-color: var(--primary-color);
+  padding: 0;
+}
+
+/* Project Page Main Container */
+.project-page {
+  padding-left: 2vw; /* Left padding */
+  padding-right: 2vw; /* Right padding */
+  padding-top: 6vw; /* Top padding */
+  margin: 0 auto; /* Center align */
+  max-width: 100%; /* Max width */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Project Header Styling */
+.project-page .project-header {
+  font-size: 2vw; /* Font size for the header */
+  display: flex; /* Align title and year in one line */
+  align-items: center; /* Align items vertically */
+  margin-bottom: 2vw; /* Space below the project header */
+}
+
+.project-page .project-title {
+  font-family: 'Ibmplexmono Semibold'; /* Specific font for the title */
+  margin-right: 30px; /* Space between title and year */
+}
+
+.project-page .project-year {
+  font-family: 'Ibmplexmono Text'; /* Specific font for the year */
+}
+
+/* Flex Container for Image and Details */
+.project-page .project-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 2vw;
+}
+
+/* Project Image Single Styling */
+.project-page .project-image-single {
+  width: calc(66.66% - 2vw); /* Adjusted width */
+  margin-right: 2vw; /* Space between image and details */
+  display: flex;
+  flex-direction: column; /* Stack iframe and caption vertically */
+}
+
+/* Iframe Wrapper Styling */
+.project-page .project-image-single .iframe-wrapper {
+  position: relative;
+  width: 100%; /* Full width */
+  padding-top: 56.25%; /* Aspect ratio for 16:9 content */
+}
+
+/* Iframe Styling */
+.project-page .project-image-single .iframe-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: var(--border-thickness) solid var(--secondary-color);
+}
+
+/* Responsive Design Adjustments for Project Image Single */
+@media screen and (max-width: 768px) {
+  .project-page .project-image-single {
+    width: 100%; /* Full width on smaller screens */
+  }
+}
+
+/* Project Image Double Styling */
+.project-page .project-image-double {
+  display: flex;
+  justify-content: space-between; /* Space between images */
+  width: 100%; /* Full width */
+  margin-top: 2vw;
+}
+
+.project-page .project-image-double > div {
+  width: calc(50% - 1vw); /* Adjusted width for two images */
+  display: flex; /* Enable flex layout */
+  flex-direction: column; /* Stack image and caption vertically */
+  align-items: flex-start; /* Align items to the start */
+}
+
+.project-page .project-image-double img {
+  width: 100%; /* Full width of its parent div */
+  height: auto;
+  border: var(--border-thickness) solid var(--secondary-color);
+}
+
+.project-page .project-image-single img {
+  border: var(--border-thickness) solid var(--secondary-color);
+}
+
+/* Project Image Caption Styling */
+.project-page .project-image-caption {
+  font-size: 0.6vw; /* Smaller font size for caption */
+  font-family: 'Ibmplexmono TextItalic'; /* Font family for caption */
+  color: var(--secondary-color); /* Caption text color */
+  text-align: left;
+  margin-top: 5px; /* Small space above the caption */
+  width: 100%; /* Full width of its parent div */
+}
+
+/* Responsive Design Adjustments for Project Image Double */
+@media screen and (max-width: 768px) {
+  .project-page .project-image-double {
+    flex-direction: column;
+  }
+
+  .project-page .project-image-double > div {
+    width: 100%; /* Full width on smaller screens */
+  }
+
+  .project-page .project-image-double img {
+    margin-bottom: 2vw;
+  }
+}
+
+/* Iframe Wrapper Styling for Project Image Double */
+.project-page .project-image-double .iframe-wrapper {
+  position: relative;
+  width: 100%; /* Full width */
+/*   padding-top: 56.25%; /* Aspect ratio for 16:9 content */ 
+}
+
+/* Iframe Styling for Project Image Double */
+.project-page .project-image-double .iframe-wrapper iframe {
+  width: 100%; /* Full width of the wrapper */
+  height: auto; /* Height auto for scaling based on aspect ratio */
+  aspect-ratio: 16 / 9; /* Set the aspect ratio for the iframe */
+  border: var(--border-thickness) solid var(--secondary-color);
+}
+
+/* Project Details Styling */
+.project-page .project-details {
+  width: calc(33.34% - 2vw);
+  font-size: 1vw;
+  line-height: 1.2vw;
+}
+
+.project-page .project-details h2 {
+  font-family: 'Ibmplexmono Semibold';
+  margin-bottom: 1vw;
+}
+
+.project-page .project-details p {
+  font-family: 'Ibmplexmono Text';
+  margin-bottom: 1vw;
+}
+
+/* Project Text Styling */
+.project-page .project-text {
+  font-size: 1vw;
+  line-height: 1.2vw;
+  font-family: 'Ibmplexmono Text';
+  margin-top: 2vw;
+  width: 100%; /* Full width */
+}
+
+.project-text .cv-column, .project-text .cv-column .detail-section, .project-text .cv-column .detail-section p {
+  box-sizing: border-box;
+}
+
+.project-text .cv-column {
+  width: 50%;
+  float: left;
+  padding: 0 1vw; /* Adjust padding as needed */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.project-text .cv-column .project-details {
+  width: 100%; /* Set to full width within the column */
+}
+
+@media screen and (max-width: 768px) {
+  .project-text .cv-column {
+    width: 100%; /* Full width on smaller screens */
+    padding: 0; /* Adjust padding for smaller screens */
+  }
+}
+
+/* END OF PROJECT PAGE ELEMENTS */
+
+/* Footer styling */
+footer {
+  margin-top: 2vw;
+  text-align: left;
+  font-size: 0.8vw;
+  padding: 5px;
+  background-color: var(--primary-color);
+}
