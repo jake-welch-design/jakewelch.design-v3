@@ -13,13 +13,11 @@ let button; // Declare the button variable at the top level
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
 
-  // Device orientation permission request
   if (
     typeof DeviceOrientationEvent !== "undefined" &&
     typeof DeviceOrientationEvent.requestPermission === "function"
   ) {
-    // Moved the button creation outside of the promise chain for broader scope
-    button = createButton("Click to give access to sensors");
+    button = createButton("activate tilting");
     button.center();
     button.mousePressed(requestAccess);
 
@@ -27,25 +25,22 @@ function setup() {
       .then((response) => {
         if (response == "granted") {
           permissionGranted = true;
-          button.remove(); // This assumes permission is asynchronously granted before user interaction
+          button.remove(); // 
         }
       })
       .catch((error) => {
         console.error(error);
-        // Keep the button if there's an error
       });
   } else {
     textAlign(CENTER, CENTER);
     text("Non-iOS Device", window.innerWidth / 2, window.innerHeight / 2);
   }
 
-  // Initialize Matter.js engine and world
   engine = Matter.Engine.create();
   engine.timing.timeScale = 0.2;
   world = engine.world;
   Matter.Runner.run(engine);
   
-  // Create boxes as physics bodies
   for (let i = 0; i < numBoxes; i++) {
     let box = Bodies.rectangle(
       random(100, window.innerWidth - 100),
