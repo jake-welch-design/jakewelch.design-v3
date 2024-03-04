@@ -59,6 +59,7 @@ function requestAccess() {
     .then((response) => {
       if (response == "granted") {
         permissionGranted = true;
+          button.remove();
       } else {
         permissionGranted = false;
       }
