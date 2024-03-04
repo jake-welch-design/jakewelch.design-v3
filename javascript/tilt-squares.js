@@ -25,7 +25,6 @@ function setup() {
       })
       .then(() => {
         permissionGranted = true;
-        button.remove();
       });
   } else {
     textAlign(CENTER, CENTER);
@@ -59,8 +58,9 @@ function requestAccess() {
   DeviceOrientationEvent.requestPermission()
     .then((response) => {
       if (response == "granted") {
+        button.hide();
         permissionGranted = true;
-          button.remove();
+        button.remove();
       } else {
         permissionGranted = false;
       }
