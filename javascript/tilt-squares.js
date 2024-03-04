@@ -18,13 +18,14 @@ function setup() {
   ) {
     DeviceOrientationEvent.requestPermission()
       .catch(() => {
-        let button = createButton("Click to give access to sensors");
+        let button = createButton("activate tilting");
         button.center();
         button.mousePressed(requestAccess);
         throw error;
       })
       .then(() => {
         permissionGranted = true;
+        button.remove();
       });
   } else {
     textAlign(CENTER, CENTER);
