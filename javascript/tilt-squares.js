@@ -1,45 +1,50 @@
 let Engine = Matter.Engine,
-  World = Matter.World,
-  Bodies = Matter.Bodies,
-  Body = Matter.Body;
+    World = Matter.World,
+    Bodies = Matter.Bodies,
+    Body = Matter.Body;
 let engine;
 let world;
 let boxes = [];
 let numBoxes = 40;
 let boxSize = 50;
 let permissionGranted = false;
+let button; // Declare the button variable at the top level
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
 
+  // Device orientation permission request
   if (
     typeof DeviceOrientationEvent !== "undefined" &&
     typeof DeviceOrientationEvent.requestPermission === "function"
   ) {
+    // Moved the button creation outside of the promise chain for broader scope
+    button = createButton("Click to give access to sensors");
+    button.center();
+    button.mousePressed(requestAccess);
+
     DeviceOrientationEvent.requestPermission()
-      .catch(() => {
-        let button = createButton("activate tilting");
-        button.center();
-        button.mousePressed(requestAccess);
-        throw error;
+      .then((response) => {
+        if (response == "granted") {
+          permissionGranted = true;
+          button.remove(); // This assumes permission is asynchronously granted before user interaction
+        }
       })
-      .then(() => {
-        permissionGranted = true;
+      .catch((error) => {
+        console.error(error);
+        // Keep the button if there's an error
       });
   } else {
     textAlign(CENTER, CENTER);
     text("Non-iOS Device", window.innerWidth / 2, window.innerHeight / 2);
   }
 
+  // Initialize Matter.js engine and world
   engine = Matter.Engine.create();
   engine.timing.timeScale = 0.2;
-
-  engine.positionIterations = 10;
-  engine.velocityIterations = 10;
-  engine.constraintIterations = 10; 
-
   world = engine.world;
   Matter.Runner.run(engine);
+  
   // Create boxes as physics bodies
   for (let i = 0; i < numBoxes; i++) {
     let box = Bodies.rectangle(
@@ -52,20 +57,21 @@ function setup() {
     boxes.push(box);
     World.add(world, box);
   }
+  
   addBoundaries();
 }
+
 function requestAccess() {
   DeviceOrientationEvent.requestPermission()
     .then((response) => {
       if (response == "granted") {
         permissionGranted = true;
-        button.remove();
       } else {
         permissionGranted = false;
       }
+      button.remove(); // Now button is accessible here
     })
     .catch(console.error);
-  button.remove();
 }
 
 function draw() {
