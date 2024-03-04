@@ -20,7 +20,7 @@ function setup() {
       .catch(() => {
         let button = createButton("activate tilting");
         button.center();
-        button.mousePressed(requestAccess{button.remove()});
+        button.mousePressed(requestAccess);
         throw error;
       })
       .then(() => {
@@ -59,6 +59,7 @@ function requestAccess() {
     .then((response) => {
       if (response == "granted") {
         permissionGranted = true;
+        button.remove();
       } else {
         permissionGranted = false;
       }
