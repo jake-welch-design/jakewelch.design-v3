@@ -1,3 +1,7 @@
+const isMobile = window.innerWidth < 768;
+const minBoxSize = 30; 
+const maxGridSize = 15;
+const minGridSize = 10; 
 const collisionCategoryBox = 0x0001;
 const collisionCategoryMouse = 0x0002;
 const collisionCategoryBorder = 0x0004;
@@ -13,7 +17,7 @@ let mouseBody,
   targetPositions = [],
   targetRotations = [];
 let reassemblyStartTime;
-const sqAmt = 15;
+let sqAmt = isMobile ? minGridSize : maxGridSize; 
 let imgW, imgH, boxSize; // Declare imgW, imgH, and boxSize without initial values
 
 let images = [], originalImages = [];
@@ -54,16 +58,17 @@ function draw() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  isMobile = window.innerWidth < 768;
   calculateImageDimensions(); // Update dimensions on window resize
-
   divideImage();
   rearrangeSquares();
 }
 
 function calculateImageDimensions() {
+  sqAmt = isMobile ? minGridSize : maxGridSize; 
   imgW = roundToNearestMultiple(windowWidth * 0.5, sqAmt);
   imgH = imgW;
-  boxSize = imgW / sqAmt;
+  boxSize = Math.max(imgW / sqAmt, minBoxSize); // Ensure boxSize is not below minBoxSize
 
   for (let i = 0; i < numImages; i++) {
     images[i] = originalImages[i].get(); // Get a copy of the original image
@@ -182,6 +187,12 @@ function populateBoxesWithImages() {
 }
 
 function rearrangeSquares() {
+  if (isMobile) {
+    // Skip reassembly on mobile devices
+    console.log("Skipping reassembly on mobile device.");
+    return;
+  }
+
   reassemblyStartTime = millis();
   const headerHeight = getHeaderHeight();
   const availableHeight = windowHeight - headerHeight;
@@ -222,6 +233,10 @@ function getHeaderHeight() {
 }
 
 function updateSquares() {
+  if (isMobile) {
+    // Skip updates on mobile devices
+    return;
+  }
   const currentTime = millis();
   const timePerBox = reassemblyDuration / boxes.length;
 

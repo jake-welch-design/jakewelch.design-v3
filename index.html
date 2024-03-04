@@ -3,6 +3,8 @@
 <head>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
+  <script src="javascript/load-components.js"></script>
+  <script src="javascript/scramble.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>jakewelch.design | Home</title>
@@ -11,14 +13,10 @@
 <body>
   <div id="header-placeholder"></div>
   <main>
-<!--     <iframe src="https://editor.p5js.org/jaketwelch/full/GfGa7IcUa" width=100% height=100%></iframe> -->
   </main>
   <div id="footer-placeholder"></div>
-  <script src="javascript/scramble.js"></script>
-<!--   <script src="javascript/cursor.js"></script> -->
-  <script src="javascript/grav-img.js"></script> 
-    <!-- Script to update main dimensions -->
-    <script src="javascript/load-components.js"></script>
+  <script src="javascript/dropdown-menu.js"></script>
+  <!-- Script to update main dimensions and initialize sketch -->
   <script>
     function updateMainDimensions() {
       const mainTag = document.querySelector('main');
@@ -29,11 +27,23 @@
         }
       }
     }
-
-    // Call updateMainDimensions initially and on window resize
-    window.addEventListener('resize', updateMainDimensions);
-    document.addEventListener('DOMContentLoaded', updateMainDimensions); // Initial call to set dimensions
+  
+    function initializeSketch() {
+      // Ensure the sketch initializes only after the viewport is stable
+      updateMainDimensions();
+      document.removeEventListener('DOMContentLoaded', initializeSketch);
+      window.removeEventListener('resize', initializeSketch);
+  
+      // Determine whether to load grav-img.js or tilt-squares.js
+      const isMobile = window.innerWidth < 768;
+      const script = document.createElement('script');
+      script.src = isMobile ? 'javascript/tilt-squares.js' : 'javascript/grav-img.js';
+      document.body.appendChild(script);
+    }
+  
+    // Attach event listeners
+    document.addEventListener('DOMContentLoaded', initializeSketch);
+    window.addEventListener('resize', initializeSketch);
   </script>
-  <script src="javascript/dropdown-menu.js"></script>
 </body>
 </html>

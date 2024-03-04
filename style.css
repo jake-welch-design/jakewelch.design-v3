@@ -68,6 +68,7 @@ header {
   border-bottom: var(--border-thickness) solid var(--secondary-color); /* Bottom border for header */
 }
 
+
 /* Header title styling */
 header h1 {
   margin-left: auto;
@@ -112,6 +113,8 @@ nav ul li {
   margin-right: 50px; /* Space between nav items */
 }
 
+
+
 /* Dropdown menu styling */
 .dropdown-menu {
   top: 60px; /* Adjust this value to align with the bottom of the header */
@@ -122,11 +125,28 @@ nav ul li {
   background-color: var(--primary-color);
   border-left: var(--border-thickness) solid var(--secondary-color); /* Left border */
   box-sizing: border-box;
-  z-index: 1000; /* High z-index to overlay content */
   overflow-y: auto; /* Scrollable if content overflows */
   max-height: 100vh; /* Full height of the viewport */
   max-width: 90vw;
 }
+
+@media screen and (max-width: 768px) {
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .dropdown-menu {
+    width: 100vw; /* Full viewport width */
+    max-width:100vw;
+    left: 0; /* Aligns the menu to the left of the viewport */
+    right: 0; /* Aligns the menu to the right of the viewport */
+    border-right: var(--border-thickness) solid var(--secondary-color); /* Left border */
+    max-height: 100vh; /* Full height of the viewport */
+    box-sizing: border-box; /* Ensures padding and border are included in the width */
+  }
+}
+
 
 /* Animation for showing the dropdown */
 .show-dropdown {
@@ -156,6 +176,7 @@ nav ul li {
     transform: translateX(100%);
   }
 }
+
 
 /* Last list item in navigation */
 nav ul li:last-child {
@@ -191,6 +212,58 @@ header h1,
 nav ul li a {
   font-size: 2vw; /* Responsive font size based on viewport width */
 }
+
+/* Adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+  header h1,
+  nav ul li a {
+    font-size: 5vw; /* Increase the font size for smaller screens */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    align-items: flex-start; /* Align items to the left */
+    padding: 2vw; /* Adjust padding to suit mobile layout */
+    min-height: auto; /* Allow the header to expand as needed */
+    max-height: none; /* Remove max-height restriction */
+    width: 100%; /* Ensure full width */
+    border-bottom: 2px solid var(--secondary-color); /* Reinforce bottom border */
+  }
+
+  .header-title {
+    padding: 4vw 0; /* Adjust padding around the title */
+    width: 100%; /* Full width */
+    font-size: 8vw;
+  }
+
+  nav {
+    width: 100%; /* Full width */
+    justify-content: space-between; /* Adjust justification */
+    padding-left: 2vw;
+    padding-right:2vw;
+  }
+
+  nav ul {
+    flex-direction: row; /* Ensures nav items are in a row */
+    justify-content: space-between; /* Evenly space out nav items */
+    padding: 0; /* Reset padding */
+    margin: 0; /* Ensure no default margins interfere */
+    width: 100%; /* Full width */
+  }
+
+  nav ul li {
+    margin-right: 0; /* Adjust or remove margin-right */
+  }
+
+  nav ul li a {
+    font-size: 5vw; /* Adjust font size for better readability */
+  }
+}
+
+
 
 /* Dropdown item styling - both headers and list items */
 .dropdown-menu .dropdown-heading,
@@ -257,16 +330,21 @@ nav ul li a {
   }
 }
 
-/* Responsive design for smaller screens */
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 768px) {
   .dropdown-menu .dropdown-heading,
-  .dropdown-menu li,
-  .dropdown-menu a {
-    /* Apply to both headings, list items, and links */
-    font-size: calc(1.4vw + 1px); /* Smoother scaling */
-    line-height: calc(2.8vw + 2px); /* Scaling line height */
+  .dropdown-menu li a {
+    font-size: 3.5vw; /* Ensure this is not being overridden elsewhere */
+    text-align: left;
+  }
+  .dropdown-heading {
+    padding:2vw;
+  }
+  .dropdown-menu li a { 
+    padding:2vw;
+    margin-left: 2vw;
   }
 }
+
 
 /* Text selection styling */
 ::selection {
@@ -295,6 +373,22 @@ a {
 /* Hover state for links */
 a:hover {
   color: var(--hover-color); /* Change color on hover */
+}
+
+button {
+  font-family: 'Ibmplexmono Text';
+  font-size: 12px;
+  border: none;
+  border-radius: 0px;
+  border-color: none;
+  padding: 4px;
+  color: black;
+  background: white;
+}
+
+button:hover {
+  background: black;
+  color: white;
 }
 
 /* START OF PROJECT PAGE ELEMENTS */
@@ -493,6 +587,79 @@ a:hover {
   }
 }
 
+/* Mobile layout adjustments for project pages*/
+@media screen and (max-width: 768px) {
+  /* Adjust the main project container to flex column to stack content and details vertically */
+  .project-page .project-content {
+    flex-direction: column;
+    align-items: center; /* Center align the items for a better mobile view */
+  }
+
+  /* Ensure the project details section fills the width and adjusts its position */
+  .project-page .project-details {
+    width: 100%; /* Make the project details fill the available width */
+    margin-top: 2vw; /* Add some space above the project details for readability */
+    padding: 0 2vw; /* Optional: Add padding for better spacing on small screens */
+  }
+
+  /* Adjust the project image single to take full width for a better mobile experience */
+  .project-page .project-image-single,
+  .project-page .project-image-double > div {
+    width: 100%; /* Full width for images on smaller screens */
+    margin-right: 0; /* Remove the right margin as it's now full width */
+  }
+
+  /* Since .project-image-double is already adjusted for smaller screens, ensure consistency in padding and margins */
+  .project-page .project-image-double img {
+    margin-bottom: 2vw; /* Adjust if needed for consistent spacing */
+  }
+}
+
+/* Mobile text size adjustments */
+@media screen and (max-width: 768px) {
+  .project-page {
+    padding-top: 23vw; /* Top padding */
+  }
+
+  /* Increase font size for project headers on mobile */
+  .project-page .project-header {
+    font-size: 5vw; /* Larger font size for better readability */
+    margin-bottom: 0vw;
+    margin-top: 6vw;
+  }
+
+
+  .project-content {
+    padding-top: 2vw;
+  }
+
+  /* Adjust font size for project details for better readability on mobile */
+  .project-page .project-details,
+  .project-page .project-details h2,
+  .project-page .project-details p {
+    font-size: 3.5vw; /* Increase font size */
+    line-height: 1.4em; /* Adjust line height for readability */
+    margin-bottom: 4vw;
+  }
+
+  /* Increase font size for project text to improve readability */
+  .project-page .project-text,
+  .project-text .cv-column .detail-section,
+  .project-text .cv-column .detail-section p {
+    font-size: 3.5vw; /* Larger font size for text blocks */
+    line-height: 1.4em; /* Improved line spacing */
+    margin-bottom: 4vw;
+  }
+
+  /* Adjust font size for image captions to make them more legible */
+  .project-page .project-image-caption {
+    font-size: 2vw; /* Slightly smaller than general text for differentiation */
+    margin-bottom: 4vw;
+    margin-top: 1vw;
+  }
+}
+
+
 /* END OF PROJECT PAGE ELEMENTS */
 
 /* Footer styling */
@@ -502,4 +669,10 @@ footer {
   font-size: 0.8vw;
   padding: 5px;
   background-color: var(--primary-color);
+}
+/* Responsive Footer Text Scaling */
+@media screen and (max-width: 768px) {
+  footer {
+    font-size: 3.5vw; /* Adjust the font size for mobile devices */
+  }
 }
