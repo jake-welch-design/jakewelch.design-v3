@@ -380,7 +380,7 @@ button {
   font-size: 12px;
   border: none;
   border-radius: 0px;
-  border-color: none;
+  border-color: black;
   padding: 4px;
   color: black;
   background: white;
