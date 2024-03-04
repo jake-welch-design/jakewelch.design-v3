@@ -10,7 +10,7 @@ let boxSize = 50;
 let permissionGranted = false;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(window.innerWidth, window.innerHeight);
 
   if (
     typeof DeviceOrientationEvent !== "undefined" &&
