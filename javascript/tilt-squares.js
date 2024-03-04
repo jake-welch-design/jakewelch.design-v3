@@ -28,7 +28,7 @@ function setup() {
       });
   } else {
     textAlign(CENTER, CENTER);
-    text("Non-iOS Device", windowWidth / 2, windowHeight / 2);
+    text("Non-iOS Device", window.innerWidth / 2, window.innerHeight / 2);
   }
 
   engine = Matter.Engine.create();
@@ -43,8 +43,8 @@ function setup() {
   // Create boxes as physics bodies
   for (let i = 0; i < numBoxes; i++) {
     let box = Bodies.rectangle(
-      random(100, width - 100),
-      random(100, height - 100),
+      random(100, window.innerWidth - 100),
+      random(100, window.innerHeight - 100),
       boxSize,
       boxSize,
       { restitution: 0.1 }
@@ -109,31 +109,31 @@ function addBoundaries() {
   let options = { isStatic: true, restitution: 0.1 }; 
 
   let ground = Bodies.rectangle(
-    windowWidth / 2,
-    windowHeight + thickness / 2,
-    windowWidth,
+    window.innerWidth / 2,
+    window.innerHeight + thickness / 2,
+    window.innerWidth,
     thickness,
     options
   );
   let ceiling = Bodies.rectangle(
-    windowWidth / 2,
+    window.innerWidth / 2,
     -thickness / 2,
-    windowWidth,
+    window.innerWidth,
     thickness,
     options
   );
   let leftWall = Bodies.rectangle(
     -thickness / 2,
-    windowHeight / 2,
+    window.innerHeight / 2,
     thickness,
-    windowHeight,
+    window.innerHeight,
     options
   );
   let rightWall = Bodies.rectangle(
-    windowWidth + thickness / 2,
-    windowHeight / 2,
+    window.innerWidth + thickness / 2,
+    window.innerHeight / 2,
     thickness,
-    windowHeight,
+    window.innerHeight,
     options
   );
 
@@ -141,6 +141,6 @@ function addBoundaries() {
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(window.innerWidth, window.innerHeight);
   addBoundaries();
 }
